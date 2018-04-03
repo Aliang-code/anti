@@ -10,6 +10,7 @@
     <name>${project.artifactId}</name>
     <modules>
         <module>anti-api</module>
+        <module>anti-base</module>
         <module>anti-framework</module>
         <module>anti-units</module>
         <module>anti-peculiar</module>

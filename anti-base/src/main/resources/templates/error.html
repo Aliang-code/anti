@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" name="viewport"
+          content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../static/css/main.css"
+          th:href="@{/css/main.css}">
+    <title>请求出错</title>
+</head>
+<body>
+<div>
+    <div class="title">
+        <h4>请求出错</h4>
+    </div>
+    <div class="table" style="padding: 20px;" align="center">
+        <p style="padding: 20px 10px;">
+            <!--/*@thymesVar id="errMsg" type="java.lang.String"*/-->
+            <span th:text="${errMsg}==null?'请求出错，请重试！':${errMsg}">请求出错，请重试！</span>
+        </p>
+    </div>
+</div>
+</body>
+</html>
