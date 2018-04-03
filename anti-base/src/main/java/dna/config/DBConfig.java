@@ -24,6 +24,7 @@ public class DBConfig {
 
     @Bean(initMethod = "init", destroyMethod = "close")
     @ConfigurationProperties(prefix = "spring.datasource.0001")
+    @ConditionalOnProperty(prefix = "spring.datasource.0001", name = "uniqueResourceName", havingValue = "0001")
     public DigestDriverDataSource dataSourceBean_0001() throws Exception {
         return DigestDriverDataSource.generateAtomikosDataSourceBean();
     }
@@ -38,29 +39,4 @@ public class DBConfig {
         return HibernateTemplateFactory.generateSessionFactory(DatabaseType.MYSQL, dataSourceBean_0001());
     }
 
-    @Bean(initMethod = "init", destroyMethod = "close")
-    @ConfigurationProperties(prefix = "spring.datasource.1802")
-    @ConditionalOnProperty(prefix = "spring.datasource.1802", name = "uniqueResourceName", havingValue = "1802")
-    public DigestDriverDataSource dataSourceBean_1802() throws Exception {
-        return DigestDriverDataSource.generateAtomikosDataSourceBean();
-    }
-
-    @Bean
-    @ConditionalOnBean(name = "dataSourceBean_1802")
-    public LocalSessionFactoryBean sessionFactoryBean_1802() throws Exception {
-        return HibernateTemplateFactory.generateSessionFactory(DatabaseType.MYSQL, dataSourceBean_1802());
-    }
-
-    @Bean(initMethod = "init", destroyMethod = "close")
-    @ConfigurationProperties(prefix = "spring.datasource.4183")
-    @ConditionalOnProperty(prefix = "spring.datasource.4183", name = "uniqueResourceName", havingValue = "4183")
-    public DigestDriverDataSource dataSourceBean_4183() throws Exception {
-        return DigestDriverDataSource.generateAtomikosDataSourceBean();
-    }
-
-    @Bean
-    @ConditionalOnBean(name = "dataSourceBean_4183")
-    public LocalSessionFactoryBean sessionFactoryBean_4183() throws Exception {
-        return HibernateTemplateFactory.generateSessionFactory(DatabaseType.MYSQL, dataSourceBean_4183());
-    }
 }
