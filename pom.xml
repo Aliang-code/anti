@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>aliang-code</groupId>
+    <artifactId>anti-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <modules>
+        <module>anti-api</module>
+        <module>anti-framework</module>
+        <module>anti-units</module>
+        <module>anti-peculiar</module>
+    </modules>
+    <properties>
+        <spring.boot.version>1.5.10.RELEASE</spring.boot.version>
+        <spring.cloud.version>Dalston.RELEASE</spring.cloud.version>
+        <fastjson.version>1.2.35</fastjson.version>
+        <javassist.version>3.21.0-GA</javassist.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
+        <commons-io.version>2.4</commons-io.version>
+        <commons-codec.version>1.10</commons-codec.version>
+        <commons-fileupload.version>1.3.2</commons-fileupload.version>
+        <commons-net.version>3.5</commons-net.version>
+        <commons-pool2.version>2.4.2</commons-pool2.version>
+        <shiro.version>1.4.0</shiro.version>
+        <ehcache.core.version>2.6.11</ehcache.core.version>
+        <joda.time.version>2.9.9</joda.time.version>
+        <castor.version>1.4.1</castor.version>
+        <apache.httpclient.version>4.5.3</apache.httpclient.version>
+        <feign-httpclient.version>9.5.1</feign-httpclient.version>
+        <ostermiller.utils.version>1.07.00</ostermiller.utils.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <sqljdbc4.version>4.0</sqljdbc4.version>
+        <java.jwt.version>3.2.0</java.jwt.version>
+        <io.jsonwebtoken.jjwt>0.7.0</io.jsonwebtoken.jjwt>
+        <org.apache.poi.version>3.17</org.apache.poi.version>
+        <aliyun.java.sdk.core.version>3.5.1</aliyun.java.sdk.core.version>
+        <aliyun.java.sdk.dysmsapi.version>1.0.0</aliyun.java.sdk.dysmsapi.version>
+        <aliyun.sdk.mns.version>1.1.8.4</aliyun.sdk.mns.version>
+        <google.guava.version>24.0-jre</google.guava.version>
+        <logstash.logback.encoder.version>5.0</logstash.logback.encoder.version>
+
+        <!-- for maven compiler plugin -->
+        <thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
+        <javadoc.plugin.version>2.10.4</javadoc.plugin.version>
+        <clean.plugin.version>3.0.0</clean.plugin.version>
+        <install.plugin.version>3.0.0</install.plugin.version>
+        <jar.plugin.version>3.0.0</jar.plugin.version>
+        <war.plugin.version>2.6</war.plugin.version>
+        <compiler.plugin.version>3.0</compiler.plugin.version>
+        <surefire.plugin.version>2.20</surefire.plugin.version>
+        <java_source_version>1.8</java_source_version>
+        <java.version>1.8</java.version>
+        <file_encoding>UTF-8</file_encoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring cloud组件版本声明-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring boot jar包版本声明-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.dic</include>
+                </includes>
+            </resource>
+            <!-- 应改用spring boot plugin 自带配置-->
+            <!--<resource>-->
+            <!--<directory>lib</directory>-->
+            <!--<targetPath>BOOT-INF/lib/</targetPath>-->
+            <!--<includes>-->
+            <!--<include>**/*.jar</include>-->
+            <!--</includes>-->
+            <!--</resource>-->
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                    <configuration>
+                        <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+                        <fork>true</fork>
+                        <!-- 打包时包含本地jar包-->
+                        <includeSystemScope>true</includeSystemScope>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <!-- javadoc-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javadoc.plugin.version}</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
+            <!-- 清理插件的使用，maven3.0.4会默认使用2.4.1版本的clean插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${clean.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>auto-clean</id>
+                        <!-- clean生命周期clean阶段 -->
+                        <phase>clean</phase>
+                        <goals>
+                            <!-- 执行clean插件的clean目标 -->
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- maven-resources-plugin在maven3.0.4中默认使用2.5版本的resources -->
+
+            <!-- 编译插件的使用，maven3.0.4会默认使用2.3.2版本的compile插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.plugin.version}</version>
+                <configuration>
+                    <!-- 源代码使用的jdk版本 -->
+                    <source>${java_source_version}</source>
+                    <!-- 构建后生成class文件jdk版本 -->
+                    <target>${java.version}</target>
+                    <compilerArguments>
+                        <extdirs>${project.basedir}/lib</extdirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+
+            <!-- maven-surefire-plugin插件，maven3.0.4默认使用2.10版本的surefire插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.plugin.version}</version>
+                <configuration>
+                    <!-- 跳过单元测试-->
+                    <skip>true</skip>
+                    <!-- 改变测试报告生成目录 ，默认为target/surefire-reports-->
+                    <!-- project.build.directory表示maven的属性，这里指的是构建的目录下面test-reports，project.build.directory就是pom标签的值 -->
+                    <reportsDirectory>${project.build.directory}/test-reports</reportsDirectory>
+                </configuration>
+            </plugin>
+            <!-- war包插件的使用，maven3.0.4会默认使用xxx版本的war插件，建议配置编码格式和打包名称 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <!-- 利用属性传递版本号 -->
+                <version>${war.plugin.version}</version>
+                <configuration>
+                    <!-- 设置编码 -->
+                    <resourceEncoding>UTF-8</resourceEncoding>
+                    <!-- 设置名称 -->
+                    <warName>${project.artifactId}</warName>
+                </configuration>
+            </plugin>
+            <!-- maven jar plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${jar.plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                        <index>true</index>
+                        <manifest>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- maven-install-plugin插件一般不需要配置,maven3.0.4默认使用2.3.1版本的install插件 -->
+
+            <!-- 部署插件的使用，maven3.0.4会默认使用2.7版本的deploy插件 -->
+            <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-deploy-plugin</artifactId>-->
+            <!--<version>${plugin.version}</version>-->
+            <!--<configuration>-->
+            <!--&lt;!&ndash; 更新元数据 &ndash;&gt;-->
+            <!--<updateReleaseInfo>true</updateReleaseInfo>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+
+        </plugins>
+    </build>
+
+</project>
